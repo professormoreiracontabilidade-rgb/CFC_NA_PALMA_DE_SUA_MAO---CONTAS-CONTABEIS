@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 Dicas de Contas Contábeis</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:linear-gradient(180deg,#2b1608,#5c3317,#8b5a2b);
+  color:#fff;
+}
+
+.app{
+  max-width:430px;
+  margin:0 auto;
+  min-height:100vh;
+  padding:14px;
+}
+
+.header{
+  background:linear-gradient(135deg,#3b1f0e,#6b3f1d,#a66a2c);
+  border-radius:26px;
+  padding:24px 16px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+.header h1{
+  margin:0;
+  font-size:30px;
+  line-height:1.15;
+  color:#fff3d6;
+  text-transform:uppercase;
+}
+
+.header p{
+  margin:10px 0 0;
+  font-size:17px;
+  font-weight:bold;
+  color:#ffe6b3;
+}
+
+.card{
+  margin-top:18px;
+  background:#fff8ec;
+  color:#3b1f0e;
+  border-radius:30px;
+  padding:26px 20px;
+  min-height:390px;
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border:5px solid #8b5a2b;
+}
+
+.numero{
+  font-size:24px;
+  font-weight:900;
+  color:#7a3f12;
+  margin-bottom:14px;
+  text-align:center;
+}
+
+.dica{
+  font-size:29px;
+  line-height:1.28;
+  font-weight:900;
+  text-align:center;
+}
+
+.progresso{
+  margin-top:16px;
+  height:14px;
+  background:#d8b48a;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.barra{
+  height:100%;
+  width:1%;
+  background:#3b1f0e;
+  transition:.3s;
+}
+
+.contador{
+  margin-top:10px;
+  text-align:center;
+  font-size:18px;
+  font-weight:bold;
+  color:#fff2d6;
+}
+
+.botoes{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+button{
+  border:none;
+  border-radius:18px;
+  padding:16px 10px;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+  color:#fff;
+  background:#4b260f;
+  flex:1;
+  box-shadow:0 6px 15px rgba(0,0,0,.25);
+}
+
+button:hover{
+  background:#6b3f1d;
+}
+
+.recomecar{
+  width:100%;
+  margin-top:14px;
+  background:#8b4513;
+  font-size:19px;
+}
+
+.tabela-box{
+  margin-top:18px;
+  background:#fff8ec;
+  color:#3b1f0e;
+  border-radius:24px;
+  padding:16px;
+  border:4px solid #8b5a2b;
+}
+
+.tabela-box h2{
+  margin:0 0 12px;
+  text-align:center;
+  color:#4b260f;
+  font-size:22px;
+}
+
+.grade{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.grade button{
+  background:#7a3f12;
+  padding:12px 0;
+  border-radius:14px;
+  font-size:16px;
+}
+
+.grade button.ativo{
+  background:#2b1608;
+  color:#ffd98a;
+}
+
+.footer{
+  margin:20px 0 8px;
+  text-align:center;
+  font-size:15px;
+  font-weight:bold;
+  color:#fff1d0;
+}
+
+@media(max-width:380px){
+  .dica{font-size:25px}
+  .header h1{font-size:26px}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <div class="header">
+    <h1>100 Dicas de Contas Contábeis</h1>
+    <p>Revisão rápida para CFC/FGV</p>
+  </div>
+
+  <div class="card">
+    <div class="numero" id="numero"></div>
+    <div class="dica" id="dica"></div>
+  </div>
+
+  <div class="progresso">
+    <div class="barra" id="barra"></div>
+  </div>
+
+  <div class="contador" id="contador"></div>
+
+  <div class="botoes">
+    <button onclick="voltar()">⬅ Voltar</button>
+    <button onclick="proxima()">Próxima ➡</button>
+  </div>
+
+  <button class="recomecar" onclick="recomecar()">🔄 Recomeçar Revisão</button>
+
+  <div class="tabela-box">
+    <h2>Ir direto para a dica</h2>
+    <div class="grade" id="grade"></div>
+  </div>
+
+  <div class="footer">
+    Curso de Contabilidade Professor Moreira<br>
+    WhatsApp: (61) 98532-3574
+  </div>
+
+</div>
+
+<script>
+const dicas = [
+"Ativo é o grupo dos bens e direitos da entidade. Começa sempre pelo código 1.",
+"Ativo Circulante reúne contas com realização no curto prazo, como caixa, bancos, estoques e clientes.",
+"Caixa e equivalentes de caixa representam recursos disponíveis imediatamente.",
+"Caixa é dinheiro físico disponível na empresa.",
+"Fundo fixo é valor mantido para pequenos pagamentos do dia a dia.",
+"Bancos conta movimento representa saldo disponível em conta bancária.",
+"Aplicações financeiras de liquidez imediata ficam próximas do caixa.",
+"Aplicações financeiras podem ser classificadas conforme sua forma de mensuração.",
+"Aplicações avaliadas ao valor justo por meio do resultado afetam o resultado quando variam.",
+"Aplicações avaliadas pelo custo podem ter conta redutora de perda estimada.",
+"Contas a receber representam direitos da empresa contra clientes ou terceiros.",
+"Duplicatas a receber são direitos originados de vendas a prazo.",
+"Perdas estimadas com créditos de liquidação duvidosa reduzem o valor de clientes.",
+"Juros a apropriar é conta redutora quando ainda não pertence ao resultado.",
+"Adiantamento a empregados é direito da empresa contra o empregado.",
+"Adiantamento de salário fica no ativo até a compensação na folha.",
+"Adiantamento de férias também é registrado como direito no ativo.",
+"Empréstimo a empregado representa valor que a empresa tem a receber.",
+"Adiantamento a terceiros é direito até a prestação do serviço ou entrega do bem.",
+"ICMS a recuperar é crédito tributário classificado no ativo.",
+"IRRF a compensar representa imposto retido que poderá ser compensado.",
+"PIS a recuperar é direito tributário da entidade.",
+"COFINS a recuperar também é crédito fiscal.",
+"IPI a recuperar aparece quando a empresa tem direito ao crédito do imposto.",
+"Estoques são ativos mantidos para venda, produção ou consumo no processo produtivo.",
+"Mercadorias para revenda são bens comprados para venda sem transformação industrial.",
+"Matéria-prima é item que será transformado no processo de produção.",
+"Insumos são materiais usados na produção ou prestação de serviços.",
+"Material de embalagem pode compor o estoque quando usado nos produtos vendidos.",
+"Produtos em elaboração são itens ainda em processo de fabricação.",
+"Produtos acabados são bens prontos para venda.",
+"Almoxarifado reúne materiais de consumo ou apoio operacional.",
+"Estoque em poder de terceiros continua sendo ativo da empresa, mesmo fora dela.",
+"Adiantamento a fornecedores é ativo, pois representa direito de receber mercadoria ou serviço.",
+"Adiantamento de importação também é ativo até o recebimento do bem.",
+"Ajuste a valor presente pode aparecer como conta redutora de ativos ou passivos.",
+"Perda estimada para redução ao valor realizável líquido reduz o estoque.",
+"Ativos biológicos são animais ou plantas vivos controlados pela entidade.",
+"Despesa paga antecipadamente é ativo até o período de competência.",
+"Seguro pago antecipadamente vira despesa com o passar do tempo.",
+"Aluguel pago antecipadamente é direito de uso futuro.",
+"Assinaturas e anuidades a apropriar são despesas antecipadas.",
+"Ativo não circulante mantido para venda é bem destinado à venda, não ao uso contínuo.",
+"Ativo não circulante reúne realizável a longo prazo, investimentos, imobilizado e intangível.",
+"Realizável a longo prazo contém direitos com prazo maior de realização.",
+"Duplicatas a receber de longo prazo ficam no ativo não circulante.",
+"Créditos tributários diferidos pertencem ao ativo realizável a longo prazo.",
+"Créditos com partes relacionadas podem aparecer no ativo não circulante.",
+"Dividendos propostos a receber representam direito da investidora.",
+"Investimentos incluem participações societárias e propriedades para investimento.",
+"Participações em controladas podem ser avaliadas pelo método da equivalência patrimonial.",
+"Participações em coligadas também podem ser avaliadas pela equivalência patrimonial.",
+"Mais-valia sobre ativos líquidos das investidas aparece no grupo de investimentos.",
+"Ágio por expectativa de rentabilidade futura está ligado ao investimento adquirido.",
+"Propriedade para investimento é imóvel mantido para aluguel ou valorização.",
+"Imobilizado reúne bens físicos usados nas atividades da entidade.",
+"Terrenos, edificações, máquinas, móveis e veículos são exemplos de imobilizado.",
+"Depreciação acumulada é conta redutora do imobilizado.",
+"Exaustão acumulada reduz ativos ligados à exploração de recursos naturais.",
+"Imobilizado em andamento representa bens ainda em construção ou instalação.",
+"Adiantamento a fornecedor de imobilizado fica no ativo até a entrega do bem.",
+"Intangível reúne ativos sem substância física, como software, patentes e direitos autorais.",
+"Amortização acumulada é conta redutora do intangível.",
+"Passivo é o grupo das obrigações da entidade. Começa pelo código 2.",
+"Passivo circulante reúne obrigações exigíveis no curto prazo.",
+"Fornecedores representam compras a prazo ainda não pagas.",
+"Fornecedores nacionais e estrangeiros são obrigações com quem vendeu bens ou serviços.",
+"Salários a pagar é obrigação trabalhista.",
+"Férias a pagar e 13º salário a pagar ficam no passivo.",
+"INSS a recolher e FGTS a recolher são obrigações sociais.",
+"ICMS, PIS, COFINS, ISS, IRRF, IRPJ e CSLL a recolher são obrigações fiscais.",
+"Parcelamento de tributos representa dívida tributária parcelada.",
+"Empréstimos bancários a pagar são obrigações financeiras.",
+"Financiamentos a pagar também pertencem ao passivo.",
+"Duplicatas descontadas aparecem no passivo quando representam obrigação com banco.",
+"Encargos financeiros a transcorrer são contas redutoras de empréstimos e financiamentos.",
+"Custos de transação a apropriar reduzem inicialmente o passivo financeiro.",
+"Debêntures são títulos de dívida emitidos pela entidade.",
+"Contas a pagar incluem água, luz, internet, telefonia e comissões.",
+"Adiantamento de cliente é passivo, pois a empresa ainda deve entregar bem ou serviço.",
+"Dividendos a pagar são obrigações com os sócios ou acionistas.",
+"Juros sobre capital próprio a pagar também ficam no passivo.",
+"Provisões representam obrigações de prazo ou valor incerto.",
+"Provisões fiscais, trabalhistas, cíveis e previdenciárias ficam no passivo.",
+"Provisão para garantias reconhece obrigação estimada com produtos ou serviços vendidos.",
+"Provisão para reestruturação só existe quando há obrigação presente.",
+"Provisão para contratos onerosos reconhece perda esperada em contrato desfavorável.",
+"Passivo não circulante reúne obrigações exigíveis no longo prazo.",
+"Tributos diferidos no passivo representam obrigação tributária futura.",
+"Patrimônio líquido representa o interesse residual dos sócios nos ativos após deduzir passivos.",
+"Capital social representa o investimento dos sócios na entidade.",
+"Capital subscrito é o capital prometido pelos sócios.",
+"Capital a integralizar é conta redutora do patrimônio líquido.",
+"Reservas de capital não nascem do lucro operacional normal.",
+"Ágio na emissão de ações é reserva de capital.",
+"Gastos na emissão de títulos patrimoniais reduzem o patrimônio líquido.",
+"Reservas de lucro são formadas a partir do lucro líquido.",
+"Reserva legal é uma reserva de lucro prevista em lei.",
+"Reservas para contingências são usadas para compensar perdas futuras prováveis.",
+"Lucros ou prejuízos acumulados pertencem ao patrimônio líquido.",
+"Ações em tesouraria reduzem o patrimônio líquido.",
+"Outros resultados abrangentes ficam no patrimônio líquido antes de irem ao resultado, quando aplicável.",
+"Resultado reúne receitas, deduções, custos e despesas.",
+"Receita de vendas e receita de serviços aumentam o resultado.",
+"Deduções da receita bruta reduzem a receita, como impostos sobre vendas e devoluções.",
+"Custos incluem CMV, CPV e custo dos serviços prestados.",
+"Despesas comerciais estão ligadas à venda, propaganda, comissões e distribuição.",
+"Despesas administrativas estão ligadas à gestão da empresa.",
+"Despesas financeiras incluem juros, multas, variação cambial despesa e encargos bancários.",
+"Receitas financeiras incluem juros recebidos, descontos obtidos e receita de aplicação financeira."
+];
+
+let atual = Number(localStorage.getItem("dicaAtual")) || 0;
+
+function mostrar(){
+  document.getElementById("numero").innerText = "Dica " + (atual + 1) + " de " + dicas.length;
+  document.getElementById("dica").innerText = dicas[atual];
+  document.getElementById("contador").innerText = "Você está na dica " + (atual + 1) + " de " + dicas.length;
+  document.getElementById("barra").style.width = ((atual + 1) / dicas.length * 100) + "%";
+  localStorage.setItem("dicaAtual", atual);
+  atualizarGrade();
+}
+
+function proxima(){
+  if(atual < dicas.length - 1){
+    atual++;
+    mostrar();
+  }
+}
+
+function voltar(){
+  if(atual > 0){
+    atual--;
+    mostrar();
+  }
+}
+
+function recomecar(){
+  atual = 0;
+  mostrar();
+}
+
+function irPara(n){
+  atual = n;
+  mostrar();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function criarGrade(){
+  const grade = document.getElementById("grade");
+  grade.innerHTML = "";
+  for(let i=0; i<dicas.length; i++){
+    const btn = document.createElement("button");
+    btn.innerText = i + 1;
+    btn.onclick = () => irPara(i);
+    btn.id = "btn" + i;
+    grade.appendChild(btn);
+  }
+}
+
+function atualizarGrade(){
+  for(let i=0; i<dicas.length; i++){
+    const btn = document.getElementById("btn" + i);
+    if(btn){
+      btn.classList.toggle("ativo", i === atual);
+    }
+  }
+}
+
+criarGrade();
+mostrar();
+</script>
+
+</body>
+</html>
